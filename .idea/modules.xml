@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/PHPTravels.iml" filepath="$PROJECT_DIR$/.idea/PHPTravels.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phptravels/hellocucumber.iml" filepath="$PROJECT_DIR$/phptravels/hellocucumber.iml" />
+    </modules>
+  </component>
+</project>
