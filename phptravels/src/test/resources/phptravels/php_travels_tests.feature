@@ -27,4 +27,22 @@ Feature: Account management
     And he enters "" as a password
     And he clicks Login button
     Then ensure that the login is unsuccessful
-#    And error message is shown
+#    But make sure that error message is shown
+
+  Scenario: Successful Sign up as customer
+    Given the user is on PHP Travels homepage
+    When he navigates to the sign up page
+    And he enters "Trifon" as first name,"Estov" as last name and "359877533938" as phone number
+    And he enters email
+    And he enters "123456" as password
+    And he clicks on Signup button
+    Then ensure that the sign up is successful
+
+  Scenario: Unsuccessful signup - email already exists
+    Given the user is on PHP Travels homepage
+    When he navigates to the sign up page
+    And he enters "Trifon" as first name,"Estov" as last name and "359877533938" as phone number
+    And he enters "test@test.com" as email
+    And he enters "123456" as password
+    And he clicks on Signup button
+    Then ensure that the sign up is unsuccessful due to already existing user
