@@ -6,6 +6,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,8 +34,8 @@ public class StepDefinitions {
 
     @Given("the user is on PHP Travels homepage")
     public void theUserIsOnPHPTravelsHomepage() {
-        driver.get("https://www.phptravels.net/");
         driver.manage().window().maximize();
+        driver.get("https://www.phptravels.net/");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         String homePageTitle = driver.getTitle();
         Assert.assertEquals(homePageTitle, "PHPTRAVELS - PHPTRAVELS");
@@ -88,5 +89,13 @@ public class StepDefinitions {
     public void ensureThatTheAccountIsSuccessfullyLoggedOut() {
         String loginPageTitle = driver.getTitle();
         Assert.assertEquals(loginPageTitle, "Login - PHPTRAVELS");
+    }
+
+    @And("error message is shown")
+    public void errorMessageIsShown() throws InterruptedException {
+        Thread.sleep(2000);
+        Alert alert = driver.switchTo().alert();
+        String alertMessage = driver.switchTo().alert().getText();
+        Assert.assertEquals(alertMessage, "Please fill out this field.");
     }
 }

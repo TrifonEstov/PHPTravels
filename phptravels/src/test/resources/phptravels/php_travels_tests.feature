@@ -12,9 +12,19 @@ Feature: Account management
     And he clicks on Logout button
     Then ensure that the account is successfully logged out
 
-  Scenario: Unsuccessful sign in
+  Scenario: Unsuccessful login
     Given the user is on PHP Travels homepage
     When he navigates to the sign in page
     And he enters "notexistinguser@gmail.com" as account email
     And he enters "123456" as a password
+    And he clicks Login button
     Then ensure that the login is unsuccessful
+
+  Scenario: Unsuccessful login - missing password
+    Given the user is on PHP Travels homepage
+    When he navigates to the sign in page
+    And he enters "user@phptravels.com" as account email
+    And he enters "" as a password
+    And he clicks Login button
+    Then ensure that the login is unsuccessful
+#    And error message is shown
