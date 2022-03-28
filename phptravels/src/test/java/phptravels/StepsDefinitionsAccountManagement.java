@@ -3,7 +3,6 @@ package phptravels;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,9 +13,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
-public class StepDefinitions {
+public class StepsDefinitionsAccountManagement {
 
     public WebDriver driver;
+    public String newlyCreatedAccountEmail;
 
     @Before
     public void setupDriver() {
@@ -129,6 +129,7 @@ public class StepDefinitions {
         Random numGenerator = new Random();
         int randomNumber = numGenerator.nextInt(1000);
         String emailForSignup = "test" + randomNumber + "@gmail.com";
+        newlyCreatedAccountEmail = emailForSignup;
         WebElement emailInputField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[4]/div/input"));
         emailInputField.sendKeys(emailForSignup);
     }
@@ -153,12 +154,6 @@ public class StepDefinitions {
         Assert.assertEquals(congratsMessageText, "Signup successfull please login.");
     }
 
-    @And("he enters {string} as email")
-    public void heEntersAsEmail(String email) {
-        WebElement emailInputField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[4]/div/input"));
-        emailInputField.sendKeys(email);
-    }
-
     @Then("ensure that the sign up is unsuccessful due to already existing user")
     public void ensureThatTheSignUpIsUnsuccessfulDueToAlreadyExistingUser() throws InterruptedException {
         Thread.sleep(2000);
@@ -166,4 +161,23 @@ public class StepDefinitions {
         String errorMessageText = errorMessage.getText();
         Assert.assertEquals(errorMessageText, "Email already exist!");
     }
+
+    @And("make sure that the sign into newly created account is successful")
+    public void makeSureThatTheSignIntoNewlyCreatedAccountIsSuccessful() {
+        WebElement emailInputField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[1]/div/input"));
+        emailInputField.sendKeys(newlyCreatedAccountEmail);
+        WebElement passwordInputField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[2]/div[1]/input"));
+        passwordInputField.sendKeys("123456");
+        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[3]/button"));
+        loginButton.click();
+        String userDashboardTitle = driver.getTitle();
+        Assert.assertEquals(userDashboardTitle, "Dashboard - PHPTRAVELS");
+    }
+
+    @And("he enters {string} already used email")
+    public void heEntersAlreadyUsedEmail(String usedEmail) {
+        WebElement emailInputField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[4]/div/input"));
+        emailInputField.sendKeys(usedEmail);
+    }
+
 }
