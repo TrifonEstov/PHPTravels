@@ -6,7 +6,7 @@ Feature: PHP Travels tests
   - book a vacation
 
   Scenario: Successful login and logout
-    Given the user is on PHP Travels homepage
+    Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign in page
     And he enters "user@phptravels.com" as account email
     And he enters "demouser" as a password
@@ -16,7 +16,7 @@ Feature: PHP Travels tests
     Then ensure that the account is successfully logged out
 
   Scenario: Unsuccessful login - not existing account
-    Given the user is on PHP Travels homepage
+    Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign in page
     And he enters "notexistinguser@gmail.com" as account email
     And he enters "123456" as a password
@@ -24,7 +24,7 @@ Feature: PHP Travels tests
     Then ensure that the login is unsuccessful
 
   Scenario: Unsuccessful login - missing password
-    Given the user is on PHP Travels homepage
+    Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign in page
     And he enters "user@phptravels.com" as account email
     And he enters "" as a password
@@ -33,7 +33,7 @@ Feature: PHP Travels tests
 #    And make sure that error message is shown
 
   Scenario: Successful Sign up as customer
-    Given the user is on PHP Travels homepage
+    Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign up page
     And he enters "Trifon" as first name,"Estov" as last name and "359877533938" as phone number
     And he enters email
@@ -43,7 +43,7 @@ Feature: PHP Travels tests
     And make sure that the sign into newly created account is successful
 
   Scenario: Unsuccessful signup - email already exists
-    Given the user is on PHP Travels homepage
+    Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign up page
     And he enters "Trifon" as first name,"Estov" as last name and "359877533938" as phone number
     And he enters "user@phptravels.com" as already used email
@@ -52,7 +52,7 @@ Feature: PHP Travels tests
     Then ensure that the sign up is unsuccessful due to already existing user
 
   Scenario: Search for hotel by city
-    Given the user is on PHP Travels homepage
+    Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to hotels page
     Then ensure that search search form and featured hotels section are available
 #    And he clicks on search field and enters "Plovdiv" as desired destination

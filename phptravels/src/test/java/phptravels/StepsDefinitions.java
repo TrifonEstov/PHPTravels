@@ -34,13 +34,16 @@ public class StepsDefinitions {
 //    }
 
 
-    @Given("the user is on PHP Travels homepage")
-    public void theUserIsOnPHPTravelsHomepage() {
+    @Given("the user is on PHP Travels homepage with accepted cookies")
+    public void theUserIsOnPHPTravelsHomepage() throws InterruptedException {
         driver.manage().window().maximize();
         driver.get("https://www.phptravels.net/");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         String homePageTitle = driver.getTitle();
         Assert.assertEquals(homePageTitle, "PHPTRAVELS - PHPTRAVELS");
+        WebElement acceptCookiesButton = driver.findElement(By.id("cookie_stop"));
+        acceptCookiesButton.click();
+        Thread.sleep(1000);
     }
 
     @When("he navigates to the sign in page")
@@ -145,14 +148,15 @@ public class StepsDefinitions {
     }
 
     @And("he clicks on Signup button")
-    public void heClicksOnSignupButton() {
+    public void heClicksOnSignupButton() throws InterruptedException {
+        Thread.sleep(3000);
         WebElement signupButton = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[7]/button"));
         signupButton.click();
     }
 
     @Then("ensure that the sign up is successful")
     public void ensureThatTheSignUpIsSuccessful() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         WebElement congratsMessage = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/div"));
         String congratsMessageText = congratsMessage.getText();
         Assert.assertEquals(congratsMessageText, "Signup successfull please login.");
@@ -160,7 +164,7 @@ public class StepsDefinitions {
 
     @Then("ensure that the sign up is unsuccessful due to already existing user")
     public void ensureThatTheSignUpIsUnsuccessfulDueToAlreadyExistingUser() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         WebElement errorMessage = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/div[1]"));
         String errorMessageText = errorMessage.getText();
         Assert.assertEquals(errorMessageText, "Email already exist!");
@@ -216,14 +220,16 @@ public class StepsDefinitions {
 //        String initialDate = checkinCalendar.getText();
 //        Assert.assertEquals(initialDate, "asdadasd");
         checkinCalendar.click();
-        WebElement selectedDate8OfApril = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[3]/div[1]/table/tbody/tr[2]/td[6]"));
+        Thread.sleep(300);
+        WebElement selectedDate8OfApril = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/div[1]/table/tbody/tr[2]/td[6]"));
         selectedDate8OfApril.click();
         Thread.sleep(300);
 //        String newlySelectedDate = checkinCalendar.getText();
 //        Assert.assertNotEquals(initialDate, newlySelectedDate);
         WebElement chechoutCalendar = driver.findElement(By.id("checkout"));
-        WebElement selectDate22OfApril = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[4]/div[1]/table/tbody/tr[4]/td[6]"));
+        WebElement selectDate22OfApril = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[3]/div[1]/table/tbody/tr[4]/td[6]"));
         selectDate22OfApril.click();
+        Thread.sleep(300);
     }
 
     @And("he selects travelers number and nationality")
