@@ -3,12 +3,12 @@ package phptravels;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -28,10 +28,10 @@ public class StepsDefinitions {
         driver = new ChromeDriver();
     }
 
-//    @After
-//    public void closeDriver(){
-//        driver.quit();
-//    }
+    @After
+    public void closeDriver(){
+        driver.quit();
+    }
 
 
     @Given("the user is on PHP Travels homepage with accepted cookies")
@@ -192,6 +192,8 @@ public class StepsDefinitions {
     public void heNavigatesToHotelsPage() {
         WebElement hotelsPageButton = driver.findElement(By.xpath("//*[@id=\"fadein\"]/header/div[2]/div/div/div/div/div[2]/nav/ul/li[2]/a"));
         hotelsPageButton.click();
+        String searchPageTitle = driver.getTitle();
+        Assert.assertEquals(searchPageTitle, "Search Hotels - PHPTRAVELS");
     }
 
     @Then("ensure that search search form and featured hotels section are available")
@@ -270,4 +272,109 @@ public class StepsDefinitions {
         searchButton.click();
     }
 
+    @When("he navigates to the Featured Hotels section")
+    public void heNavigatesToTheFeaturedHotelsSection() throws InterruptedException {
+        WebElement featuredHotelSectoin = driver.findElement(By.xpath("//*[@id=\"fadein\"]/section[4]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", featuredHotelSectoin);
+        Thread.sleep(2000);
+        boolean isfeaturedHotelsSectionDisplayed = featuredHotelSectoin.isDisplayed();
+        Assert.assertTrue(isfeaturedHotelsSectionDisplayed);
+    }
+
+    @And("he selects desired hotel")
+    public void heSelectsDesiredHotel() {
+        WebElement detailsButtonOfTheFirstFeaturedHotel = driver.findElement(By.xpath("//*[@id=\"fadein\"]/section[4]/div/div[2]/div/div/div/div[1]/div/div[6]/div/div[2]/div[2]/a"));
+        detailsButtonOfTheFirstFeaturedHotel.click();
+        WebElement aboutHoteTitle = driver.findElement(By.xpath("//*[@id=\"description\"]/div[2]/h3"));
+        String aboutHotelTitleText = aboutHoteTitle.getText();
+        Assert.assertTrue(aboutHotelTitleText.contains("About"));
+    }
+
+    @And("he selects desired room")
+    public void heSelectsDesiredRoom() throws InterruptedException {
+        WebElement bookNowButton = driver.findElement(By.xpath("//*[@id=\"availability\"]/div[2]/div[1]/div[2]/div/div[2]/form/div/div[4]/div/div/button"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bookNowButton);
+        Thread.sleep(1000);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", bookNowButton);
+        Thread.sleep(1000);
+
+        String bookingPageTitle = driver.getTitle();
+        Assert.assertEquals(bookingPageTitle, "Hotel Booking - PHPTRAVELS");
+    }
+
+
+    @And("he enters personal information")
+    public void heEntersPersonalInformation() throws InterruptedException {
+        WebElement firstNameField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[1]/div/div/input"));
+        WebElement lastNameField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[2]/div/div/input"));
+        WebElement emailField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[3]/div/div/input"));
+        WebElement phone = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[4]/div/div/input"));
+        WebElement address = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[5]/div/div/input"));
+        firstNameField.sendKeys("Trifon");
+        lastNameField.sendKeys("Estov");
+        emailField.sendKeys("trifon.estov@gmail.com");
+        phone.sendKeys("+359877533938");
+        address.sendKeys("Sofia., Bulgaria, Atanas Kirchev 19, str.");
+
+        WebElement countryDropdown = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[6]/div/div/div/span/span[1]/span"));
+        countryDropdown.click();
+        WebElement countrySearchField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/span/span/span[1]/input"));
+        countrySearchField.sendKeys("Bulgaria");
+        Thread.sleep(200);
+        WebElement countryResult = driver.findElement(By.xpath("/html/body/span/span/span[2]/ul/li"));
+        countryResult.click();
+
+        WebElement nationalityDropdown = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[7]/div/div/div/span/span[1]/span"));
+        nationalityDropdown.click();
+        WebElement nationalitySearchField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/span/span/span[1]/input"));
+        nationalitySearchField.sendKeys("Bulgaria");
+        Thread.sleep(200);
+        WebElement nationalityResult = driver.findElement(By.xpath("/html/body/span/span/span[2]/ul/li"));
+        nationalityResult.click();
+    }
+
+    @And("he enters travellers information")
+    public void heEntersTravellersInformation() {
+        Select firstTravellerTitle = new Select(driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/div/div[1]/select")));
+        firstTravellerTitle.selectByVisibleText("MR");
+        WebElement firstTravellerFirstName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/div/div[2]/input"));
+        firstTravellerFirstName.sendKeys("Trifon");
+        WebElement firstTravellerLastName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/div/div[3]/input"));
+        firstTravellerLastName.sendKeys("Estov");
+
+        Select secondTravellerTitle = new Select(driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[2]/div[2]/div/div[1]/select")));
+        firstTravellerTitle.selectByVisibleText("MISS");
+        WebElement secondTravellerFirstName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[2]/div[2]/div/div[2]/input"));
+        secondTravellerFirstName.sendKeys("Paulina");
+        WebElement secondTravellerLastName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[2]/div[2]/div/div[3]/input"));
+        secondTravellerLastName.sendKeys("Petrova");
+
+        Select childAge = new Select(driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]/select")));
+        childAge.selectByVisibleText("5");
+        WebElement childFirstName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]/input"));
+        childFirstName.sendKeys("Ivaylo");
+        WebElement childLastName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]/input"));
+        childLastName.sendKeys("Estov");
+    }
+
+    @And("he chooses payment method")
+    public void heChoosesPaymentMethod() {
+        WebElement payLaterMethod = driver.findElement(By.id("gateway_pay-later"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", payLaterMethod);
+    }
+
+    @And("he accepts T&C and confirms booking")
+    public void heAcceptsTCAndConfirmsBooking() throws InterruptedException {
+        WebElement termsAndConditionsCheckBox = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[4]/div/div/div/label"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", termsAndConditionsCheckBox);
+        Thread.sleep(2000);
+        WebElement submitButton = driver.findElement(By.id("booking"));
+        submitButton.click();
+    }
+
+    @Then("ensure that the booking is completed")
+    public void ensureThatTheBookingIsCompleted() {
+        String pendingBookingPageTitle = driver.getTitle();
+        Assert.assertEquals(pendingBookingPageTitle, "Hotel Invoice - PHPTRAVELS");
+    }
 }

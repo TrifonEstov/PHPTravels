@@ -60,3 +60,15 @@ Feature: PHP Travels tests
     And he selects travelers number and nationality
     And he clicks on Search button
 #    Then ensure that desired destination is found
+
+  Scenario: Book featured hotel - without registration
+    Given the user is on PHP Travels homepage with accepted cookies
+    When he navigates to the Featured Hotels section
+    And he selects desired hotel
+    And he selects desired room
+    And he enters personal information
+    And he enters travellers information
+    And he chooses payment method
+    And he accepts T&C and confirms booking
+    Then ensure that the booking is completed
+
