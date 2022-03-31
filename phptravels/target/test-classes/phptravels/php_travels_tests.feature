@@ -2,8 +2,10 @@ Feature: PHP Travels tests
   As a customer,
   I want to:
   - sign up, login and logout
-  - search for hotel in desired destination
-  - book a vacation
+  - search for hotel
+  - search for flight
+  - apply for visa
+  - book a hotel
 
   Scenario: Successful login and logout
     Given the user is on PHP Travels homepage with accepted cookies
@@ -30,7 +32,6 @@ Feature: PHP Travels tests
     And he enters "" as a password
     And he clicks Login button
     Then ensure that the login is unsuccessful
-#    And make sure that error message is shown
 
   Scenario: Successful Sign up as customer
     Given the user is on PHP Travels homepage with accepted cookies
@@ -50,16 +51,6 @@ Feature: PHP Travels tests
     And he enters "123456" as password
     And he clicks on Signup button
     Then ensure that the sign up is unsuccessful due to already existing user
-
-  Scenario: Search for hotel by city
-    Given the user is on PHP Travels homepage with accepted cookies
-    When he navigates to hotels page
-    Then ensure that search search form and featured hotels section are available
-#    And he clicks on search field and enters "Plovdiv" as desired destination
-    And he selects checkin and checkout dates
-    And he selects travelers number and nationality
-    And he clicks on Search button
-#    Then ensure that desired destination is found
 
   Scenario: Book s featured hotel - without registration
     Given the user is on PHP Travels homepage with accepted cookies
@@ -88,3 +79,31 @@ Feature: PHP Travels tests
     And he accepts T&C and confirms booking
     Then ensure that the booking is completed
 
+#  Scenario: Search for hotel by city
+#    Given the user is on PHP Travels homepage with accepted cookies
+#    When he navigates to hotels page
+#    Then ensure that search search form and featured hotels section are available
+#    And he clicks on search field and enters "Plovdiv" as desired destination
+#    And he selects checkin and checkout dates
+#    And he selects travelers number and nationality
+#    And he clicks on Search hotel button
+#    Then ensure that desired destination is found
+#
+#  Scenario: Search for flights
+#    Given the user is on PHP Travels homepage with accepted cookies
+#    When he navigates to flights page
+#    And he selects "Sofia" as departure and "Munich" as destination airport
+#    And he selects "Economy Premium" as flight type
+#    And he selects departure date
+#    And he selects the number of passangers
+#    And he clicks on Search flight button
+#    Then ensure that search result matches desired criteria
+#
+#  Scenario: Apply for visa
+#    Given the user is on PHP Travels homepage with accepted cookies
+#    When he navigates to submit visa page
+#    And he selects "Bulgaria" as origin country and "Canada" as destination country
+#    And he chooses visa start date
+#    And he clicks on Submit button
+#    Then ensure that submission form is displayed
+#    And he enters

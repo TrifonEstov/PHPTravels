@@ -96,14 +96,6 @@ public class StepsDefinitions {
         Assert.assertEquals(loginPageTitle, "Login - PHPTRAVELS");
     }
 
-//    @But("make sure that error message is shown")
-//    public void makeSureThatErrorMessageIsShown() throws InterruptedException {
-//        Thread.sleep(2000);
-//        Alert alert = driver.switchTo().alert();
-//        String alertMessage = driver.switchTo().alert().getText();
-//        Assert.assertEquals(alertMessage, "Please fill out this field.");
-//    }
-
     @When("he navigates to the sign up page")
     public void heNavigatesToTheSignUpPage() {
         WebElement signupButton = driver.findElement(By.xpath("//*[@id=\"fadein\"]/header/div[1]/div/div/div[2]/div/div/a[1]"));
@@ -267,8 +259,8 @@ public class StepsDefinitions {
         nationalityDropdown.selectByVisibleText("Bulgaria");
     }
 
-    @And("he clicks on Search button")
-    public void heClicksOnSearchButton() {
+    @And("he clicks on Search hotel button")
+    public void heClicksOnSearchHotelButton() {
         WebElement searchButton = driver.findElement(By.id("submit"));
         searchButton.click();
     }
