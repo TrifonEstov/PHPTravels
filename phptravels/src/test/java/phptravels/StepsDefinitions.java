@@ -151,7 +151,8 @@ public class StepsDefinitions {
     public void heClicksOnSignupButton() throws InterruptedException {
         Thread.sleep(3000);
         WebElement signupButton = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[1]/div/div[2]/div[2]/div/form/div[7]/button"));
-        signupButton.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", signupButton);
+        //        signupButton.click();
     }
 
     @Then("ensure that the sign up is successful")
@@ -376,5 +377,12 @@ public class StepsDefinitions {
     public void ensureThatTheBookingIsCompleted() {
         String pendingBookingPageTitle = driver.getTitle();
         Assert.assertEquals(pendingBookingPageTitle, "Hotel Invoice - PHPTRAVELS");
+    }
+
+    @And("he turns back to the homepage")
+    public void heTurnsBackToTheHomepage() throws InterruptedException {
+        WebElement homePageButton = driver.findElement(By.xpath("//*[@id=\"fadein\"]/header/div[2]/div/div/div/div/div[2]/nav/ul/li[1]/a"));
+        homePageButton.click();
+        Thread.sleep(500);
     }
 }
