@@ -79,16 +79,16 @@ Feature: PHP Travels tests
     And he accepts T&C and confirms booking
     Then ensure that the booking is completed
 
-#  Scenario: Search for hotel by city
-#    Given the user is on PHP Travels homepage with accepted cookies
-#    When he navigates to hotels page
-#    Then ensure that search search form and featured hotels section are available
-#    And he clicks on search field and enters "Plovdiv" as desired destination
-#    And he selects checkin and checkout dates
-#    And he selects travelers number and nationality
-#    And he clicks on Search hotel button
-#    Then ensure that desired destination is found
-#
+  Scenario: Search for hotel by city
+    Given the user is on PHP Travels homepage with accepted cookies
+    When he navigates to hotels page
+    Then ensure that search search form and featured hotels section are available
+    And he clicks on search field and enters "Plovdiv" as desired destination
+    And he selects checkin and checkout dates
+    And he selects travelers number and nationality
+    And he clicks on Search hotel button
+    Then ensure that desired destination is found
+
 #  Scenario: Search for flights
 #    Given the user is on PHP Travels homepage with accepted cookies
 #    When he navigates to flights page
