@@ -40,7 +40,7 @@ public class StepsDefinitions {
         driver.get("https://www.phptravels.net/");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         String homePageTitle = driver.getTitle();
-        Assert.assertEquals(homePageTitle, "PHPTRAVELS - PHPTRAVELS");
+        Assert.assertEquals(homePageTitle, "PHPTRAVELS | Travel Technology Partner - PHPTRAVELS");
         WebElement acceptCookiesButton = driver.findElement(By.id("cookie_stop"));
         acceptCookiesButton.click();
         Thread.sleep(1000);
@@ -303,11 +303,11 @@ public class StepsDefinitions {
         WebElement emailField = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[3]/div/div/input"));
         WebElement phone = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[4]/div/div/input"));
         WebElement address = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[5]/div/div/input"));
-        firstNameField.sendKeys("Trifon");
-        lastNameField.sendKeys("Estov");
-        emailField.sendKeys("trifon.estov@gmail.com");
-        phone.sendKeys("+359877533938");
-        address.sendKeys("Sofia., Bulgaria, Atanas Kirchev 19, str.");
+        firstNameField.sendKeys("Test");
+        lastNameField.sendKeys("User");
+        emailField.sendKeys("test.user@gmail.com");
+        phone.sendKeys("+359888123456");
+        address.sendKeys("Sofia., Bulgaria, Vitosha 19, blvd.");
 
         WebElement countryDropdown = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[1]/div[2]/div/div/div[6]/div/div/div/span/span[1]/span"));
         countryDropdown.click();
@@ -331,23 +331,23 @@ public class StepsDefinitions {
         Select firstTravellerTitle = new Select(driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/div/div[1]/select")));
         firstTravellerTitle.selectByVisibleText("MR");
         WebElement firstTravellerFirstName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/div/div[2]/input"));
-        firstTravellerFirstName.sendKeys("Trifon");
+        firstTravellerFirstName.sendKeys("Test");
         WebElement firstTravellerLastName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/div/div[3]/input"));
-        firstTravellerLastName.sendKeys("Estov");
+        firstTravellerLastName.sendKeys("User");
 
         Select secondTravellerTitle = new Select(driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[2]/div[2]/div/div[1]/select")));
         firstTravellerTitle.selectByVisibleText("MISS");
         WebElement secondTravellerFirstName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[2]/div[2]/div/div[2]/input"));
-        secondTravellerFirstName.sendKeys("Paulina");
+        secondTravellerFirstName.sendKeys("TestUserWifeName");
         WebElement secondTravellerLastName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[2]/div[2]/div/div[3]/input"));
-        secondTravellerLastName.sendKeys("Petrova");
+        secondTravellerLastName.sendKeys("TestUserWifeFamily");
 
         Select childAge = new Select(driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]/select")));
         childAge.selectByVisibleText("5");
         WebElement childFirstName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]/input"));
-        childFirstName.sendKeys("Ivaylo");
+        childFirstName.sendKeys("TestChildName");
         WebElement childLastName = driver.findElement(By.xpath("//*[@id=\"fadein\"]/div[2]/form/section/div/div/div[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]/input"));
-        childLastName.sendKeys("Estov");
+        childLastName.sendKeys("TestChildFamily");
     }
 
     @And("he chooses payment method")

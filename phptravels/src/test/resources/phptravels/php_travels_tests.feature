@@ -36,7 +36,7 @@ Feature: PHP Travels tests
   Scenario: Successful Sign up as customer
     Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign up page
-    And he enters "Trifon" as first name,"Estov" as last name and "359877533938" as phone number
+    And he enters "Test" as first name,"User" as last name and "359888123456" as phone number
     And he enters email
     And he enters "123456" as password
     And he clicks on Signup button
@@ -46,7 +46,7 @@ Feature: PHP Travels tests
   Scenario: Unsuccessful signup - email already exists
     Given the user is on PHP Travels homepage with accepted cookies
     When he navigates to the sign up page
-    And he enters "Trifon" as first name,"Estov" as last name and "359877533938" as phone number
+    And he enters "Test" as first name,"User" as last name and "359888123456" as phone number
     And he enters "user@phptravels.com" as already used email
     And he enters "123456" as password
     And he clicks on Signup button
