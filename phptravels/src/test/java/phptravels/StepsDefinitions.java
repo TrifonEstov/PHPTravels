@@ -1,38 +1,31 @@
 package phptravels;
 
+import Utils.Browser;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import static Utils.Browser.driver;
+
 
 public class StepsDefinitions {
 
-    public WebDriver driver;
-    public String newlyCreatedAccountEmail;
-
     @Before
-    public void setupDriver() {
-        System.setProperty("webdriver.chrome.driver", "/home/trifon/Desktop/QaiWare/PHPTravels/drivers/chromedriver");
-        driver = new ChromeDriver();
+    public static void setupDriver() {
+        Browser.openBrowser();
     }
-
     @After
-    public void closeDriver(){
-        driver.quit();
+    public static void closeDriver(){
+      Browser.closeBrowser();
     }
 
+    public String newlyCreatedAccountEmail;
 
     @Given("the user is on PHP Travels homepage with accepted cookies")
     public void theUserIsOnPHPTravelsHomepage() throws InterruptedException {
